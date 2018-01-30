@@ -37,6 +37,9 @@ public class Turno {
 	@JsonManagedReference
 	Set<Marcha> marchas = new HashSet<Marcha>();
 	
+	@Column(name="ida")
+	private Boolean ida;
+	
 	public Long getIdTurno() {
 		return idTurno;
 	}
@@ -66,6 +69,12 @@ public class Turno {
 	}
 	public void setMarchas(Set<Marcha> marchas) {
 		this.marchas = marchas;
+	}
+	public Boolean getIda() {
+		return ida;
+	}
+	public void setIda(Boolean ida) {
+		this.ida = ida;
 	}
 
 	
