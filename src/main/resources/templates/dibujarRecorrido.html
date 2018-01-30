@@ -33,7 +33,8 @@
           center: {lat: 14.5585707, lng: -90.72952299999997},
           mapTypeId: 'terrain'
         });
-        var objeto2 = new Array();
+        var objetoIda = [];
+        var objetoRetorno = [];
         $.ajax({                        
             type: "GET",                 
             url: "/recorrido",                     
@@ -44,11 +45,33 @@
                 
                 for (obj in data.ida)
             	{
+//                 
+					var point ={lat: parseFloat(data.ida[obj].latitud), lng: parseFloat(data.ida[obj].longitud)};
+					objetoIda.push(point);
+            	}
+                for (obj in data.regreso)
+            	{
 //                 	var point =new google.maps.LatLng(parseFloat(data.ida[obj].latitud),parseFloat(data.ida[obj].longitud));
 //                 	objeto2.push(point);
-               	objeto2.push({lat: parseFloat(data.ida[obj].latitud), lng: parseFloat(data.ida[obj].longitud)});
+					var point ={lat: parseFloat(data.regreso[obj].latitud), lng: parseFloat(data.regreso[obj].longitud)};
+					objetoRetorno.push(point);
             	}
-               
+                
+                var flightPath = new google.maps.Polyline({
+                    path: objetoIda,
+                    strokeColor: '#2E2EFE',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                  });
+                  flightPath.setMap(map);
+                  
+                  var flightPath = new google.maps.Polyline({
+                      path: objetoRetorno,
+                      strokeColor: '#FE642E',
+                      strokeOpacity: 1.0,
+                      strokeWeight: 2
+                    });
+                    flightPath.setMap(map);
                }
            });
         
@@ -72,16 +95,7 @@
           
         ];
         console.log(flightPlanCoordinates);
-        console.log("objeto 2");
-    	console.log(objeto2);
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          strokeColor: '#2E2EFE',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-
-        flightPath.setMap(map);
+       
       }
     </script>
     <script async="async" defer="defer" 
