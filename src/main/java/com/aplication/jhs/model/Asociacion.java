@@ -53,7 +53,10 @@ public class Asociacion {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="asociacion")
 	@JsonManagedReference
 	Set<Recorrido> recorridos = new HashSet<Recorrido>();
-	
+	@Column(name="token")
+	private String token;
+	@Column(name="contrasena")
+	private String contrasena;
 	
 	public Boolean getActivo() {
 		return activo;
@@ -132,6 +135,18 @@ public class Asociacion {
 	}
 	public void setRecorridos(Set<Recorrido> recorridos) {
 		this.recorridos = recorridos;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	
 	
