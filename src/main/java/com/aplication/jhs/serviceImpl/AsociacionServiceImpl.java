@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aplication.jhs.controller.LocalizacionController;
+import com.aplication.jhs.dao.Localizacion;
 import com.aplication.jhs.dao.PeticionLoginAsociacion;
 import com.aplication.jhs.dao.RespuestaGenericaDAO;
 import com.aplication.jhs.dao.RespuestaLoginAsociacion;
@@ -31,9 +32,24 @@ public class AsociacionServiceImpl implements AsociacionService{
    
 	
 	@Override
-	public Asociacion getAsociacionId(Long id) {
-		Asociacion asociacion = asociacionRepository.findByIdAsociacion(id);
-		return asociacion;
+	public RespuestaGenericaDAO getAsociacionId(Localizacion localizacion) {
+		
+		RespuestaGenericaDAO response = new RespuestaGenericaDAO();
+		Asociacion asociacion = asociacionRepository.findByIdAsociacionAndToken(localizacion.getIdAsociacion(), localizacion.getToken());
+		if(asociacion != null)
+		{
+			logger.info("Asociacon nombre "+asociacion.getNombre());
+			asociacion.setLatitud(localizacion.getLatitutd());
+			asociacion.setLongitud(localizacion.getLongitud());
+			response.setCodigo(saveAsociacion(asociacion));
+			response.setMensaje("Ubicacion actualizada");
+		}
+		else
+		{
+			response.setCodigo(INCORRECTO);
+			response.setMensaje("No se actualizo la hubicacion");
+		}
+		return response;
 	}
 
 	@Override

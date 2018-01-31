@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aplication.jhs.dao.Localizacion;
+import com.aplication.jhs.dao.RespuestaGenericaDAO;
 import com.aplication.jhs.model.Asociacion;
 import com.aplication.jhs.repository.AsociacionRepository;
 import com.aplication.jhs.service.AsociacionService;
@@ -28,13 +29,10 @@ public class LocalizacionController {
 	
 	
 	@RequestMapping(value="/setLocation", method=RequestMethod.POST)
-	public @ResponseBody String setLocation(@RequestBody Localizacion localizacion)
+	public @ResponseBody RespuestaGenericaDAO setLocation(@RequestBody Localizacion localizacion)
 	{
-		Asociacion asoc = asociacionService.getAsociacionId(localizacion.getIdAsociacion());
-		logger.info("Asociacon nombre "+asoc.getNombre());
-		asoc.setLatitud(localizacion.getLatitutd());
-		asoc.setLongitud(localizacion.getLongitud());
-		String respuesta = asociacionService.saveAsociacion(asoc);
+		RespuestaGenericaDAO respuesta = asociacionService.getAsociacionId(localizacion);
+		
 		return respuesta;
 	}
 	

@@ -10,4 +10,5 @@ public interface AsociacionRepository extends CrudRepository<Asociacion, Long>{
 
 	
 	Asociacion findByIdAsociacion(Long idAsociacion);
+	Asociacion findByIdAsociacionAndToken(Long idAsociacion, String token);
 }
